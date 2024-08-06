@@ -15,17 +15,17 @@ const CartItem = props => (
       } = value
       const {cartItemDetails} = props
       const {id, title, brand, quantity, price, imageUrl} = cartItemDetails
-
-      const onClickDecrement = () => {
-        decrementCartItemQuantity(id)
-      }
-      const onClickIncrement = () => {
-        incrementCartItemQuantity(id)
-      }
       const onRemoveCartItem = () => {
         removeCartItem(id)
       }
-      const totalPrice = price * quantity
+
+      const onIncrementCartItemQty = () => {
+        incrementCartItemQuantity(id)
+      }
+
+      const onDecrementCartItemQty = () => {
+        decrementCartItemQuantity(id)
+      }
 
       return (
         <li className="cart-item">
@@ -39,9 +39,9 @@ const CartItem = props => (
               <button
                 type="button"
                 className="quantity-controller-button"
-                // eslint-disable-next-line react/no-unknown-property
-                testid="minus"
-                onClick={onClickDecrement}
+                aria-label="Mute volume"
+                onClick={onDecrementCartItemQty}
+                data-testid="minus"
               >
                 <BsDashSquare color="#52606D" size={12} />
               </button>
@@ -49,15 +49,15 @@ const CartItem = props => (
               <button
                 type="button"
                 className="quantity-controller-button"
-                // eslint-disable-next-line react/no-unknown-property
-                testid="plus"
-                onClick={onClickIncrement}
+                aria-label="Mute volume"
+                onClick={onIncrementCartItemQty}
+                data-testid="plus"
               >
                 <BsPlusSquare color="#52606D" size={12} />
               </button>
             </div>
             <div className="total-price-remove-container">
-              <p className="cart-total-price">Rs {totalPrice}/-</p>
+              <p className="cart-total-price">Rs {price * quantity}/-</p>
               <button
                 className="remove-button"
                 type="button"
@@ -70,9 +70,9 @@ const CartItem = props => (
           <button
             className="delete-button"
             type="button"
+            aria-label="Mute volume" // Check this
             onClick={onRemoveCartItem}
-            // eslint-disable-next-line react/no-unknown-property
-            testid="remove"
+            data-testid="remove"
           >
             <AiFillCloseCircle color="#616E7C" size={20} />
           </button>
